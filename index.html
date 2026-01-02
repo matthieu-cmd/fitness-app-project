@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FitTrack Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .test-box {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+    </style>
+    
+    <!-- Firebase v8 (compat version - EASIER) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <h1>🏋️ FitTrack</h1>
+    <p>If you see this styled page, HTML is working!</p>
+    
+    <div class="test-box">
+        <h2>✅ Success!</h2>
+        <p>Your browser is rendering HTML correctly.</p>
+        <p>Now we can add Firebase.</p>
+        
+        <div id="firebase-status" style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+            Firebase Status: <span id="status">Loading...</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 50px;">
+        <h3>Next Steps:</h3>
+        <p>1. Check browser console (F12 → Console)</p>
+        <p>2. You should see "Firebase initialized!"</p>
+        <p>3. No red error messages</p>
+    </div>
+
+    <!-- Firebase Configuration - SIMPLE VERSION -->
+    <script>
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBhmoDueCSMJu81-qjeYepX15nEht_PkLw",
+            authDomain: "fitness-app-8a9cf.firebaseapp.com",
+            projectId: "fitness-app-8a9cf",
+            storageBucket: "fitness-app-8a9cf.firebasestorage.app",
+            messagingSenderId: "364959569494",
+            appId: "1:364959569494:web:0203bd3d8b62146ad2cdf7",
+            measurementId: "G-K8NNZDQB42"
+        };
+
+        try {
+            // Initialize Firebase (v8 compat version)
+            firebase.initializeApp(firebaseConfig);
+            console.log("✅ Firebase initialized successfully!");
+            
+            // Get Firebase services
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            
+            // Update status on page
+            document.getElementById('status').textContent = "Connected! ✅";
+            document.getElementById('status').style.color = "green";
+            
+            // Test authentication
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    console.log("User logged in:", user.email);
+                } else {
+                    console.log("No user logged in");
+                }
+            });
+            
+        } catch (error) {
+            console.error("❌ Firebase error:", error);
+            document.getElementById('status').textContent = "Error! Check console";
+            document.getElementById('status').style.color = "red";
+        }
+    </script>
+</body>
+</html>
